@@ -1,3 +1,5 @@
+
+
 ### Preguntas de control
 
 1. ¿Qué valor contiene el siguiente dato: `dato[5]`, si el arreglo se inicializa de la siguiente manera: `int datos[6] = {5, 82, 41};`?
