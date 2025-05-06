@@ -18,7 +18,8 @@ while(letra!='?'){
 
 caracter = fgetsc(stdin);
 
-letra = fputc(caracter, pfile);
+if(caracter != '?')
+    letra = fputc(caracter, pfile);
 
 }
 
