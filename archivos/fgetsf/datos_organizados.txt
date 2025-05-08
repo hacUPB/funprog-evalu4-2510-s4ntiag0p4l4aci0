@@ -1,0 +1,3 @@
+Registro 1: Peso = 60.800000, Estatura = 1.740000, IMC = 20.081913
+Registro 2: Peso = 70.000000, Estatura = 1.750000, IMC = 22.857143
+Registro 3: Peso = 63.000000, Estatura = 1.660000, IMC = 22.862534
