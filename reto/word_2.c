@@ -12,7 +12,7 @@ void reemplazar(char** texto);
 void guardar_archivo(char* texto);
 void imprimir(char* texto);
 int menu(void);
-void limpiar_mem_temporal(char* mem_temporal, size_t tamaño);
+void recalcular_mem_temporal(char* mem_temporal, size_t tamano);
 
 int main()
 {
@@ -81,7 +81,7 @@ void cargando(void){
     printf("\n");
 }
 
-void limpiar_mem_temporal(char* mem_temporal, size_t tamaño) {
+void recalcular_mem_temporal(char* mem_temporal, size_t tamano) {
     size_t len = strlen(mem_temporal);
     if (len > 0 && mem_temporal[len - 1] == '\n') {
         mem_temporal[len - 1] = '\0';
@@ -91,23 +91,23 @@ void limpiar_mem_temporal(char* mem_temporal, size_t tamaño) {
 char* abrir_archivo()
 {
     char nombre[100];
-    FILE* archivo;
-    int tamaño = 0;
-    char* mem_temporal = NULL;
+    FILE *archivo;
+    int tamano = 0;
+    char *mem_temporal = NULL, *temp;
 
-    printf("Ingrese el nombre del archivo a abrir: ");
+    printf("Ingrese el nombre del archivo a abrir, incluya la extesion: ");
     if (!fgets(nombre, sizeof(nombre), stdin)) return NULL;
-    limpiar_mem_temporal(nombre, sizeof(nombre));
+    recalcular_mem_temporal(nombre, sizeof(nombre));
 
     archivo = fopen(nombre, "r");
     if (!archivo) {
-        printf("No se pudo abrir el archivo.\n");
+        perror("No se pudo abrir el archivo.\n");
         return NULL;
     }
 
     int c;
     while ((c = fgetc(archivo)) != EOF) {
-        char* temp = realloc(mem_temporal, tamaño + 2);
+        temp = realloc(mem_temporal, tamano + 2);
         if (!temp) {
             free(mem_temporal);
             fclose(archivo);
@@ -115,11 +115,11 @@ char* abrir_archivo()
             return NULL;
         }
         mem_temporal = temp;
-        mem_temporal[tamaño++] = (char)c;
+        mem_temporal[tamano++] = (char)c;
     }
 
     if (mem_temporal) {
-        mem_temporal[tamaño] = '\0';
+        mem_temporal[tamano] = '\0';
     } else {
         mem_temporal = malloc(1);
         if (mem_temporal) mem_temporal[0] = '\0';
@@ -176,10 +176,10 @@ void reemplazar(char** texto)
     char buscar[50], reemplazo[50];
     printf("Palabra a buscar: ");
     if (!fgets(buscar, sizeof(buscar), stdin)) return;
-    limpiar_mem_temporal(buscar, sizeof(buscar));
+    recalcular_mem_temporal(buscar, sizeof(buscar));
     printf("Reemplazar por: ");
     if (!fgets(reemplazo, sizeof(reemplazo), stdin)) return;
-    limpiar_mem_temporal(reemplazo, sizeof(reemplazo));
+    recalcular_mem_temporal(reemplazo, sizeof(reemplazo));
 
     size_t len_buscar = strlen(buscar);
     size_t len_reemplazo = strlen(reemplazo);
@@ -198,7 +198,7 @@ void reemplazar(char** texto)
     size_t nuevo_len = len_texto + count * (len_reemplazo - len_buscar);
     char* nuevo = (char*) malloc(nuevo_len + 1);
     if (!nuevo) {
-        printf("Error al asignar memoria para reemplazo.\n");
+        perror("Error al asignar memoria para reemplazo.\n");
         return;
     }
 
@@ -225,11 +225,11 @@ void guardar_archivo(char* texto)
 
     printf("Nombre del archivo de salida: ");
     if (!fgets(nombre, sizeof(nombre), stdin)) return;
-    limpiar_mem_temporal(nombre, sizeof(nombre));
+    recalcular_mem_temporal(nombre, sizeof(nombre));
 
     archivo = fopen(nombre, "w");
     if (!archivo) {
-        printf("No se pudo crear el archivo.\n");
+        perror("No se pudo crear el archivo.\n");
         return;
     }
 
