@@ -1,5 +1,5 @@
-.exe
-.i
-.s
-.o
-.vscode
+*.exe
+*.i
+*.s
+*.o
+*.vscode
