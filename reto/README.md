@@ -2,6 +2,8 @@
 
 ## RETO
 
+- Este es el README solicitado en el reto, si está buscando la sustentación es el archivo: [sustentacion_reto_U4.md](./sustentacion_reto_U4.md)
+
 - Este es el último archivo MarkDown del curso, el fin de una historia y de un viaje. Por eso este archivo será un poco diferente a lo acostumbrado.
 
 - NOTA: si bien el reto pide poner la estadísticas en un documento aparte, este programa no solo las pone en un archivo, sino que las imprime en pantalla. Por eso es necesario especificar cuando se quiere imprimir en un documento nuevo.
